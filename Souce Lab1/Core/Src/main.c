@@ -173,39 +173,44 @@ int main(void)
 	  	  HAL_GPIO_WritePin ( GPIOA , GPIO_PIN_7 , GPIO_PIN_SET );
 	  	  first = 0;
 	  }
+
 	  if (count == 0){
 		  if (status_red == 0){
-			  HAL_GPIO_WritePin ( GPIOA , GPIO_PIN_2 , GPIO_PIN_SET );
+			  HAL_GPIO_WritePin ( GPIOA , GPIO_PIN_2 , GPIO_PIN_SET ); // vang 1,3 off
 
-			  HAL_GPIO_WritePin ( GPIOA , GPIO_PIN_6 , GPIO_PIN_SET );
+			  HAL_GPIO_WritePin ( GPIOA , GPIO_PIN_5 , GPIO_PIN_SET ); // do 1,3 off
 		  }
 		  if (status_red == 1){
-			  HAL_GPIO_WritePin ( GPIOA , GPIO_PIN_1 , GPIO_PIN_SET );
+			  HAL_GPIO_WritePin ( GPIOA , GPIO_PIN_1 , GPIO_PIN_SET ); // do 1,3 off
 
-			  HAL_GPIO_WritePin ( GPIOA , GPIO_PIN_5 , GPIO_PIN_SET );
+			  HAL_GPIO_WritePin ( GPIOA , GPIO_PIN_6 , GPIO_PIN_SET ); // vang 2,4 off
 		  }
 		  status_red = 1 - status_red;
 		  count = 5;
 	  }
+
 	  if (status_red == 0){
 		  if (count == 5){
-			  HAL_GPIO_WritePin ( GPIOA , GPIO_PIN_3 , GPIO_PIN_RESET );
+			  HAL_GPIO_WritePin ( GPIOA , GPIO_PIN_3 , GPIO_PIN_RESET ); // xanh 1,3 on
 
-			  HAL_GPIO_WritePin ( GPIOA , GPIO_PIN_7 , GPIO_PIN_RESET );
+			  HAL_GPIO_WritePin ( GPIOA , GPIO_PIN_5 , GPIO_PIN_RESET ); // do 1,3 on
 		  }
 		  if (count == 2){
-			  HAL_GPIO_WritePin ( GPIOA , GPIO_PIN_3 , GPIO_PIN_SET );
-			  HAL_GPIO_WritePin ( GPIOA , GPIO_PIN_2 , GPIO_PIN_RESET );
+			  HAL_GPIO_WritePin ( GPIOA , GPIO_PIN_3 , GPIO_PIN_SET ); // xanh 1,3 off
 
-			  HAL_GPIO_WritePin ( GPIOA , GPIO_PIN_7 , GPIO_PIN_SET );
-			  HAL_GPIO_WritePin ( GPIOA , GPIO_PIN_6 , GPIO_PIN_RESET );
+			  HAL_GPIO_WritePin ( GPIOA , GPIO_PIN_2 , GPIO_PIN_RESET ); // vang 1,3 on
+
 		  }
 	  }
 	  if (status_red == 1){
 		  if (count == 5){
-			  HAL_GPIO_WritePin ( GPIOA , GPIO_PIN_1 , GPIO_PIN_RESET );
+			  HAL_GPIO_WritePin ( GPIOA , GPIO_PIN_1 , GPIO_PIN_RESET ); // do 1,3 on
 
-			  HAL_GPIO_WritePin ( GPIOA , GPIO_PIN_5 , GPIO_PIN_RESET );
+			  HAL_GPIO_WritePin ( GPIOA , GPIO_PIN_7 , GPIO_PIN_RESET ); // xanh 2,4 on
+		  }
+		  if (count == 2){
+			  HAL_GPIO_WritePin ( GPIOA , GPIO_PIN_7 , GPIO_PIN_SET ); // xanh 2,4 off
+			  HAL_GPIO_WritePin ( GPIOA , GPIO_PIN_6 , GPIO_PIN_RESET ); // vang 2,4 on
 		  }
 	  }
 
