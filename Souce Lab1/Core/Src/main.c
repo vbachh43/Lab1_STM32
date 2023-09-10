@@ -157,11 +157,11 @@ int main(void)
   int first = 1;
   int count = 5;
   int status_red = 1;
-  int counter = 0;
+  int counter = 4;
 
   while (1){
-	  if( counter >= 10) counter = 0;
-	  display7SEG (counter ++) ;
+	  if( counter < 0) counter = 4;
+	  display7SEG (counter--) ;
 
 	  if (first == 1){
 		  HAL_GPIO_WritePin ( GPIOA , GPIO_PIN_1 , GPIO_PIN_SET );
