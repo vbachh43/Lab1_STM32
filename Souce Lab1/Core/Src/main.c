@@ -182,25 +182,23 @@ int main(void)
 		  if (counter - 2 >= 0){
 			  display7SEG_vertical (counter);
 			  display7SEG_horizontal(counter - 2);
-			  counter = counter - 1;
 		  }
 		  if (counter - 2 < 0){
 			  display7SEG_vertical(counter);
 			  display7SEG_horizontal(counter);
-			  counter = counter - 1;
 		  }
+		  counter --;
 	  }
 	  if (flag == 0){
 		  if (counter - 2 >= 0){
 			  display7SEG_horizontal (counter);
 			  display7SEG_vertical(counter - 2);
-			  counter = counter - 1;
 		  }
 		  if (counter - 2 < 0){
 			  display7SEG_horizontal(counter);
 			  display7SEG_vertical(counter);
-			  counter = counter - 1;
 		  }
+		  counter--;
 	  }
 
 
