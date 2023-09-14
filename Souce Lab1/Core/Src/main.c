@@ -54,21 +54,6 @@ static void MX_GPIO_Init(void);
 
 /* Private user code ---------------------------------------------------------*/
 /* USER CODE BEGIN 0 */
-void clearAllClock(){
-	HAL_GPIO_WritePin(GPIOA, GPIO_PIN_4, GPIO_PIN_SET);
-	HAL_GPIO_WritePin(GPIOA, GPIO_PIN_5, GPIO_PIN_SET);
-	HAL_GPIO_WritePin(GPIOA, GPIO_PIN_6, GPIO_PIN_SET);
-	HAL_GPIO_WritePin(GPIOA, GPIO_PIN_7, GPIO_PIN_SET);
-	HAL_GPIO_WritePin(GPIOA, GPIO_PIN_8, GPIO_PIN_SET);
-	HAL_GPIO_WritePin(GPIOA, GPIO_PIN_9, GPIO_PIN_SET);
-	HAL_GPIO_WritePin(GPIOA, GPIO_PIN_10, GPIO_PIN_SET);
-	HAL_GPIO_WritePin(GPIOA, GPIO_PIN_11, GPIO_PIN_SET);
-	HAL_GPIO_WritePin(GPIOA, GPIO_PIN_12, GPIO_PIN_SET);
-	HAL_GPIO_WritePin(GPIOA, GPIO_PIN_13, GPIO_PIN_SET);
-	HAL_GPIO_WritePin(GPIOA, GPIO_PIN_14, GPIO_PIN_SET);
-	HAL_GPIO_WritePin(GPIOA, GPIO_PIN_15, GPIO_PIN_SET);
-}
-
 void setNumberOnClock(int num){
 	switch(num){
 	case 0:
@@ -172,6 +157,21 @@ void clearNumberOnClock(int num){
 		break;
 	}
 }
+
+void clearAllClock(){
+	HAL_GPIO_WritePin(GPIOA, GPIO_PIN_4, GPIO_PIN_SET);
+	HAL_GPIO_WritePin(GPIOA, GPIO_PIN_5, GPIO_PIN_SET);
+	HAL_GPIO_WritePin(GPIOA, GPIO_PIN_6, GPIO_PIN_SET);
+	HAL_GPIO_WritePin(GPIOA, GPIO_PIN_7, GPIO_PIN_SET);
+	HAL_GPIO_WritePin(GPIOA, GPIO_PIN_8, GPIO_PIN_SET);
+	HAL_GPIO_WritePin(GPIOA, GPIO_PIN_9, GPIO_PIN_SET);
+	HAL_GPIO_WritePin(GPIOA, GPIO_PIN_10, GPIO_PIN_SET);
+	HAL_GPIO_WritePin(GPIOA, GPIO_PIN_11, GPIO_PIN_SET);
+	HAL_GPIO_WritePin(GPIOA, GPIO_PIN_12, GPIO_PIN_SET);
+	HAL_GPIO_WritePin(GPIOA, GPIO_PIN_13, GPIO_PIN_SET);
+	HAL_GPIO_WritePin(GPIOA, GPIO_PIN_14, GPIO_PIN_SET);
+	HAL_GPIO_WritePin(GPIOA, GPIO_PIN_15, GPIO_PIN_SET);
+}
 /* USER CODE END 0 */
 
 /**
@@ -208,18 +208,63 @@ int main(void)
 
   /* Infinite loop */
   /* USER CODE BEGIN WHILE */
-  int counter = 0;
+  int counter_sec = 0;
+  int counter_min = 30;
+  int counter_hour = 1;
+
   clearAllClock();
+
   while (1)
   {
-	  if (counter >= 12) counter = 0;
-	  setNumberOnClock(counter);
-	  HAL_Delay(500);
-	  clearNumberOnClock(counter);
+	  if (counter_sec >= 60){
+		  counter_sec = 0;
+		  counter_min ++;
+	  }
+	  if (counter_min >= 60){
+		  counter_min = 0;
+		  counter_hour ++;
+	  }
+	  if (counter_hour >= 12) counter_hour = 0;
 
-	  counter ++;
+	  if (counter_hour < 12){
+		  if (counter_min < 60){
+			  if (counter_sec < 60){
+				  if (counter_sec % 5 == 0){
+					  if (counter_sec == 0){
+						  clearNumberOnClock(11);
+						  setNumberOnClock(0);
+					  }
+					  else {
+						  clearNumberOnClock((counter_sec - 5) / 5);
+						  setNumberOnClock(counter_sec / 5);
+					  }
+				  }
+			  }
+			  if (counter_min % 5 == 0){
+				  if (counter_min == 0){
+					  clearNumberOnClock(11);
+					  setNumberOnClock(0);
+				  }
+				  else {
+					  clearNumberOnClock((counter_min - 5) / 5);
+				  	  setNumberOnClock(counter_min / 5);
+				  }
+
+			  }
+		  }
+		  if (counter_hour == 0){
+			  clearNumberOnClock(11);
+			  setNumberOnClock(0);
+
+		  }
+		  else{
+			  clearNumberOnClock(counter_hour - 1);
+			  setNumberOnClock(counter_hour);
+		  }
+	  }
     /* USER CODE END WHILE */
-
+	  counter_sec ++;
+	  HAL_Delay(100);
     /* USER CODE BEGIN 3 */
   }
   /* USER CODE END 3 */
