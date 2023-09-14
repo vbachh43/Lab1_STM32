@@ -70,7 +70,6 @@ void clear_all(){
 }
 
 void display_clock(int num){
-	clear_all();
 	switch(num){
 	case 1:
 		HAL_GPIO_WritePin(GPIOA, GPIO_PIN_4, GPIO_PIN_RESET);
@@ -209,7 +208,8 @@ int main(void)
 
   /* Infinite loop */
   /* USER CODE BEGIN WHILE */
-  int counter = 1;
+  int counter = 12;
+  clear_all();
   while (1)
   {
 	  if (counter > 12) counter = 1;
