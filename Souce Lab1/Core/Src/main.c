@@ -158,7 +158,7 @@ void clearNumberOnClock(int num){
 	}
 }
 
-void clearAllClock(){
+void off_Led(){
 	HAL_GPIO_WritePin(GPIOA, GPIO_PIN_4, GPIO_PIN_SET);
 	HAL_GPIO_WritePin(GPIOA, GPIO_PIN_5, GPIO_PIN_SET);
 	HAL_GPIO_WritePin(GPIOA, GPIO_PIN_6, GPIO_PIN_SET);
@@ -171,6 +171,23 @@ void clearAllClock(){
 	HAL_GPIO_WritePin(GPIOA, GPIO_PIN_13, GPIO_PIN_SET);
 	HAL_GPIO_WritePin(GPIOA, GPIO_PIN_14, GPIO_PIN_SET);
 	HAL_GPIO_WritePin(GPIOA, GPIO_PIN_15, GPIO_PIN_SET);
+}
+
+/* void clearAllClock(int counter_hour, int counter_min, int counter_sec){
+	clearNumberOnClock(counter_hour);
+	clearNumberOnClock(counter_min / 5);
+	clearNumberOnClock(counter_sec / 5);
+}
+*/
+
+void display_hour(int num){
+	setNumberOnClock(num);
+}
+void display_min(int num){
+	setNumberOnClock(num / 5);
+}
+void display_sec(int num){
+	setNumberOnClock(num / 5);
 }
 /* USER CODE END 0 */
 
@@ -208,14 +225,50 @@ int main(void)
 
   /* Infinite loop */
   /* USER CODE BEGIN WHILE */
+  int counter_hour = 2;
+  int counter_min = 0;
   int counter_sec = 0;
-  int counter_min = 30;
-  int counter_hour = 1;
 
-  clearAllClock();
+  off_Led();
 
   while (1)
   {
+// display (0h 00p 00s)
+	  if ((counter_sec / 5 == 0) && (counter_min / 5 == 0) && counter_hour == 0){
+		  off_Led();
+		  setNumberOnClock(0);
+	  }
+// display second -------------------------------------------------
+	  if (counter_sec % 5 == 0){
+		  if (counter_sec != 0 && ((counter_min / 5) != ((counter_sec - 5) / 5))){
+			  clearNumberOnClock((counter_sec - 5) / 5);
+		  }
+		  if ((counter_sec == 0) && (counter_min != 0) && (counter_hour != 0) && (counter_min / 5 != 11) && (counter_hour != 11)){
+			  clearNumberOnClock(11);
+		  }
+		  setNumberOnClock(counter_sec / 5);
+	  }
+// display minute -------------------------------------------------
+	  if (counter_min % 5 == 0){
+		  if ((counter_min != 0) && ((counter_sec / 5) != ((counter_min - 5) / 5))){
+			  clearNumberOnClock((counter_min - 5) / 5);
+		  }
+		  if ((counter_min == 0) && (counter_sec != 0) && (counter_hour != 0) && (counter_sec / 5 != 11) && (counter_hour != 11)){
+			  clearNumberOnClock(11);
+		  }
+		  setNumberOnClock(counter_min / 5);
+	  }
+// display hour ------------------------------------------------
+	  if ((counter_hour != 0) && ((counter_sec / 5) != (counter_hour - 1)) && ((counter_min / 5) != (counter_hour - 1))){
+	  		  clearNumberOnClock(counter_hour - 1);
+	  	  }
+	  	  if ((counter_hour == 0) && (counter_sec != 0) && (counter_min != 0) && (counter_min / 5 != 11) && (counter_sec / 5 != 11)){
+	  	      clearNumberOnClock(11);
+	  	  }
+	  	  setNumberOnClock(counter_hour);
+// counter ++ --------------------------------------------------
+	  counter_sec ++;
+
 	  if (counter_sec >= 60){
 		  counter_sec = 0;
 		  counter_min ++;
@@ -226,45 +279,8 @@ int main(void)
 	  }
 	  if (counter_hour >= 12) counter_hour = 0;
 
-	  if (counter_hour < 12){
-		  if (counter_min < 60){
-			  if (counter_sec < 60){
-				  if (counter_sec % 5 == 0){
-					  if (counter_sec == 0){
-						  clearNumberOnClock(11);
-						  setNumberOnClock(0);
-					  }
-					  else {
-						  clearNumberOnClock((counter_sec - 5) / 5);
-						  setNumberOnClock(counter_sec / 5);
-					  }
-				  }
-			  }
-			  if (counter_min % 5 == 0){
-				  if (counter_min == 0){
-					  clearNumberOnClock(11);
-					  setNumberOnClock(0);
-				  }
-				  else {
-					  clearNumberOnClock((counter_min - 5) / 5);
-				  	  setNumberOnClock(counter_min / 5);
-				  }
-
-			  }
-		  }
-		  if (counter_hour == 0){
-			  clearNumberOnClock(11);
-			  setNumberOnClock(0);
-
-		  }
-		  else{
-			  clearNumberOnClock(counter_hour - 1);
-			  setNumberOnClock(counter_hour);
-		  }
-	  }
     /* USER CODE END WHILE */
-	  counter_sec ++;
-	  HAL_Delay(100);
+	  HAL_Delay(20);
     /* USER CODE BEGIN 3 */
   }
   /* USER CODE END 3 */
