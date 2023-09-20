@@ -27,23 +27,23 @@ Idx Name          Size      VMA       LMA       File off  Algn
                   ALLOC
  11 .ARM.attributes 00000029  00000000  00000000  0002000c  2**0
                   CONTENTS, READONLY
- 12 .debug_info   000030b5  00000000  00000000  00020035  2**0
+ 12 .debug_info   00003043  00000000  00000000  00020035  2**0
                   CONTENTS, READONLY, DEBUGGING, OCTETS
- 13 .debug_abbrev 00000ebb  00000000  00000000  000230ea  2**0
+ 13 .debug_abbrev 00000ebb  00000000  00000000  00023078  2**0
                   CONTENTS, READONLY, DEBUGGING, OCTETS
- 14 .debug_aranges 00000400  00000000  00000000  00023fa8  2**3
+ 14 .debug_aranges 000003e8  00000000  00000000  00023f38  2**3
                   CONTENTS, READONLY, DEBUGGING, OCTETS
- 15 .debug_ranges 00000378  00000000  00000000  000243a8  2**3
+ 15 .debug_ranges 00000360  00000000  00000000  00024320  2**3
                   CONTENTS, READONLY, DEBUGGING, OCTETS
- 16 .debug_macro  000155b7  00000000  00000000  00024720  2**0
+ 16 .debug_macro  000155b7  00000000  00000000  00024680  2**0
                   CONTENTS, READONLY, DEBUGGING, OCTETS
- 17 .debug_line   0000473a  00000000  00000000  00039cd7  2**0
+ 17 .debug_line   000046f2  00000000  00000000  00039c37  2**0
                   CONTENTS, READONLY, DEBUGGING, OCTETS
- 18 .debug_str    00079a22  00000000  00000000  0003e411  2**0
+ 18 .debug_str    000799fd  00000000  00000000  0003e329  2**0
                   CONTENTS, READONLY, DEBUGGING, OCTETS
- 19 .comment      00000053  00000000  00000000  000b7e33  2**0
+ 19 .comment      00000053  00000000  00000000  000b7d26  2**0
                   CONTENTS, READONLY
- 20 .debug_frame  00000e00  00000000  00000000  000b7e88  2**2
+ 20 .debug_frame  00000d94  00000000  00000000  000b7d7c  2**2
                   CONTENTS, READONLY, DEBUGGING, OCTETS
 
 Disassembly of section .text:
@@ -744,8 +744,8 @@ int main(void)
  80005be:	60fb      	str	r3, [r7, #12]
 
     /* USER CODE END WHILE */
-	  HAL_Delay(20);
- 80005c0:	2014      	movs	r0, #20
+	  HAL_Delay(100);
+ 80005c0:	2064      	movs	r0, #100	; 0x64
  80005c2:	f000 f961 	bl	8000888 <HAL_Delay>
 	  if ((counter_sec / 5 == 0) && (counter_min / 5 == 0) && counter_hour == 0){
  80005c6:	e70c      	b.n	80003e2 <main+0x22>

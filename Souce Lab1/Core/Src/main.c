@@ -172,23 +172,6 @@ void off_Led(){
 	HAL_GPIO_WritePin(GPIOA, GPIO_PIN_14, GPIO_PIN_SET);
 	HAL_GPIO_WritePin(GPIOA, GPIO_PIN_15, GPIO_PIN_SET);
 }
-
-/* void clearAllClock(int counter_hour, int counter_min, int counter_sec){
-	clearNumberOnClock(counter_hour);
-	clearNumberOnClock(counter_min / 5);
-	clearNumberOnClock(counter_sec / 5);
-}
-*/
-
-void display_hour(int num){
-	setNumberOnClock(num);
-}
-void display_min(int num){
-	setNumberOnClock(num / 5);
-}
-void display_sec(int num){
-	setNumberOnClock(num / 5);
-}
 /* USER CODE END 0 */
 
 /**
@@ -280,7 +263,7 @@ int main(void)
 	  if (counter_hour >= 12) counter_hour = 0;
 
     /* USER CODE END WHILE */
-	  HAL_Delay(20);
+	  HAL_Delay(100);
     /* USER CODE BEGIN 3 */
   }
   /* USER CODE END 3 */
